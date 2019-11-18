@@ -10478,6 +10478,7 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 						if (menuState === 1) {
 							hide_menu();
 							hide_flyout();
+							hide_accountFlyout();
 						}
 						break;
 				}
