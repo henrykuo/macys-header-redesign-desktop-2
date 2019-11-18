@@ -10200,9 +10200,11 @@ $__System.register('a', ['9'], function (_export) {
 $__System.register('b', ['7', '9', 'a'], function (_export) {
 	// =======================================================================================
 	// DOM
+
+	// Menu
 	'use strict';
 
-	var _, $, lg, $menuButton, $menu, $menuL1, $menuL1Link, $menuTopLink, $menuBottomLink, $menuFlyout, $menuCat, $angleShim, $angleShimTop, $angleShimBottom, $flyoutPosRef1, $flyoutPosRef2, $overlay, menuState, flyoutState, headerHeight, child, childCurrent, menuL1height, flyoutPosCheck_linkY, flyoutPosCheck_screenHeight, flyoutPosCheck_flyoutHeight, mouseMoveTimer, debounce_show_menu, debounce_hide_menu, debounce_show_flyout, debounce_show_cat, debounce_hide_flyout;
+	var _, $, lg, $menuButton, $menu, $menuL1, $menuL1Link, $menuTopLink, $menuBottomLink, $menuFlyout, $menuCat, $flyoutPosRef1, $flyoutPosRef2, $angleShim, $angleShimTop, $angleShimBottom, $overlay, $signIn, $signInLink, $signInPanel, $accountLink, $accountFlyout, menuState, flyoutState, headerHeight, child, childCurrent, menuL1height, flyoutPosCheck_linkY, flyoutPosCheck_screenHeight, flyoutPosCheck_flyoutHeight, mouseMoveTimer, debounce_show_menu, debounce_hide_menu, debounce_show_flyout, debounce_hide_flyout, debounce_show_cat, debounce_show_accountFlyout, debounce_hide_accountFlyout, debounce_show_signInPanel, debounce_hide_signInPanel;
 
 	// ----------------- MENU TOGGLE -----------------
 	// Show Menu
@@ -10303,6 +10305,22 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 	function hide_angle_shim() {
 		$angleShim.removeClass('active');
 	}
+	// ----------------- SHOW SIGN IN PANEL -----------------
+	function show_signInPanel() {
+		$signInPanel.addClass('active');
+	}
+	// ----------------- HIDE SIGN IN PANEL -----------------
+	function hide_signInPanel() {
+		$signInPanel.removeClass('active');
+	}
+	// ----------------- SHOW ACCOUNT FLYOUT -----------------
+	function show_accountFlyout() {
+		$accountFlyout.addClass('active');
+	}
+	// ----------------- HIDE ACCOUNT FLYOUT -----------------
+	function hide_accountFlyout() {
+		$accountFlyout.removeClass('active');
+	}
 	// =======================================================================================
 	// EVENTS
 	return {
@@ -10320,14 +10338,29 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 			$menuL1Link = $menuL1.find('.link');
 			$menuTopLink = $menuL1.find('.top-link');
 			$menuBottomLink = $menuL1.find('.bottom-link');
+
+			// Flyout
 			$menuFlyout = $('.menu-flyout');
 			$menuCat = $('.menu-cat');
+			$flyoutPosRef1 = $('.flyout-position-reference-1');
+			$flyoutPosRef2 = $('.flyout-position-reference-2');
+
+			// Angle Shim
 			$angleShim = $('.angle');
 			$angleShimTop = $('.angle-top');
 			$angleShimBottom = $('.angle-bottom');
-			$flyoutPosRef1 = $('.flyout-position-reference-1');
-			$flyoutPosRef2 = $('.flyout-position-reference-2');
+
+			// Overlay
 			$overlay = $('.overlay');
+
+			// Account from Header
+			$signIn = $('.store-account-search').find('.account');
+			$signInLink = $('.store-account-search').find('.account').find('.lockup');
+			$signInPanel = $('.store-account-search').find('.account').find('.menu-panel-account');
+
+			// Account from Menu
+			$accountLink = $('#menu-account');
+			$accountFlyout = $('.account-flyout');
 
 			// =======================================================================================
 			// VARS
@@ -10348,8 +10381,12 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 			debounce_show_menu = _.debounce(show_menu, 100);
 			debounce_hide_menu = _.debounce(hide_menu, 50);
 			debounce_show_flyout = _.debounce(show_flyout, 20);
-			debounce_show_cat = _.debounce(show_cat, 10);
 			debounce_hide_flyout = _.debounce(hide_flyout, 10);
+			debounce_show_cat = _.debounce(show_cat, 10);
+			debounce_show_accountFlyout = _.debounce(show_accountFlyout, 20);
+			debounce_hide_accountFlyout = _.debounce(hide_accountFlyout, 10);
+			debounce_show_signInPanel = _.debounce(show_signInPanel, 10);
+			debounce_hide_signInPanel = _.debounce(hide_signInPanel, 50);
 			$menuButton.on('click', function () {
 				debounce_hide_menu.cancel();
 				if (menuState === 0) {
@@ -10403,6 +10440,24 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 				mouseMoveTimer = window.setTimeout(function () {
 					hide_angle_shim();
 				}, 60);
+			});
+			$signIn.on('mouseenter', function () {
+				debounce_hide_signInPanel.cancel();
+				debounce_show_signInPanel();
+			}).on('mouseleave', function () {
+				debounce_hide_signInPanel();
+			});
+			$accountLink.on('mouseenter', function () {
+				debounce_hide_accountFlyout.cancel();
+				debounce_show_accountFlyout();
+			}).on('mouseleave', function () {
+				debounce_hide_accountFlyout();
+			});
+			$accountFlyout.on('mouseenter', function () {
+				debounce_hide_accountFlyout.cancel();
+				debounce_show_accountFlyout();
+			}).on('mouseleave', function () {
+				debounce_hide_accountFlyout();
 			});
 			$(document).keydown(function (e) {
 				switch (e.keyCode) {
