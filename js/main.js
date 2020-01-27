@@ -10298,7 +10298,19 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 		if (refPoint1 < 48) {
 			refPoint1 = 48;
 		}
-		$menuFlyout.css({ 'top': refPoint1 });
+		$menuFlyout.css({ 'top': refPoint1, 'bottom': 'auto' });
+
+		// --------------------------------
+		// Check it menu renders with portion cut off below screen
+		// If so, set the window position to bottom
+
+		// Add flyout height + its top position to see if it is taller than the screen(window) height
+		var flyout_height_plus_top_position = refPoint1 + $menuFlyout.outerHeight();
+		// The screen height
+		var window_height = $(window).height();
+		if (flyout_height_plus_top_position > window_height) {
+			$menuFlyout.css({ 'top': 'auto', 'bottom': 0 });
+		}
 	}
 	// ----------------- HIDE THE ANGLE SHIM -----------------
 	// For when user hovers over the shim for a moment, we should dismiss the angle assuming user's intent is to hover over link beneath it
