@@ -10479,10 +10479,12 @@ $__System.register('b', ['7', '9', 'a'], function (_export) {
 							$('.angle-top').removeClass('show-guide');
 							$('.angle-bottom').removeClass('show-guide');
 							$menuL1Link.removeClass('show-guide');
+							$('body').removeClass('spec');
 						} else {
 							$('.angle-top').addClass('show-guide');
 							$('.angle-bottom').addClass('show-guide');
 							$menuL1Link.addClass('show-guide');
+							$('body').addClass('spec');
 						}
 						break;
 					case 27:
